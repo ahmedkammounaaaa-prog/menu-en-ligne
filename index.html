@@ -1,80 +1,606 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-<meta charset="UTF-8">
-<title>Chichekhane Lounge Menu</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CHICHEKHANE LOUNGE | Menu</title>
 
-<style>
-body{
-background:#4b0d0d;
-color:white;
-font-family:Arial;
-text-align:center;
-}
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-h1{
-color:gold;
-}
+    :root {
+      --bg-dark: #080505;
+      --bg-burgundy: #1a0608;
+      --card: rgba(255, 255, 255, 0.06);
+      --gold: #d4af37;
+      --gold-soft: #f3d27a;
+      --white: #f8f5f0;
+      --muted: #cfc7ba;
+      --line: rgba(212, 175, 55, 0.25);
+      --shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+    }
 
-.section{
-margin-top:30px;
-}
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--white);
+      background:
+        radial-gradient(circle at top left, rgba(212, 175, 55, 0.08), transparent 30%),
+        radial-gradient(circle at top right, rgba(120, 0, 20, 0.22), transparent 35%),
+        linear-gradient(135deg, #040303 0%, #130507 45%, #23080b 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-.item{
-display:flex;
-justify-content:space-between;
-width:300px;
-margin:auto;
-padding:5px;
-border-bottom:1px solid gold;
-}
-</style>
+    /* SPLASH SCREEN */
+    .splash {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle, rgba(212, 175, 55, 0.08), transparent 35%),
+        linear-gradient(135deg, #040303, #1a0608, #080505);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9999;
+      animation: hideSplash 1s ease forwards;
+      animation-delay: 3s;
+    }
 
+    .splash-logo {
+      width: 160px;
+      height: 160px;
+      object-fit: contain;
+      border-radius: 50%;
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.35);
+      animation: pulseLogo 2s infinite ease-in-out, floatLogo 3s infinite ease-in-out;
+      background: rgba(255,255,255,0.05);
+      padding: 12px;
+    }
+
+    .splash-title {
+      margin-top: 24px;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 3px;
+      text-align: center;
+      animation: fadeGlow 2s infinite alternate;
+    }
+
+    .splash-subtitle {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 1rem;
+      letter-spacing: 2px;
+    }
+
+    @keyframes hideSplash {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    @keyframes pulseLogo {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+
+    @keyframes floatLogo {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes fadeGlow {
+      from { text-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
+      to { text-shadow: 0 0 25px rgba(212, 175, 55, 0.8); }
+    }
+
+    /* MAIN CONTENT */
+    .main-content {
+      opacity: 0;
+      animation: showContent 1.2s ease forwards;
+      animation-delay: 3.1s;
+    }
+
+    @keyframes showContent {
+      to {
+        opacity: 1;
+      }
+    }
+
+    header {
+      position: relative;
+      text-align: center;
+      padding: 60px 20px 35px;
+    }
+
+    .top-logo {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      border-radius: 50%;
+      padding: 8px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      box-shadow: 0 0 22px rgba(212, 175, 55, 0.2);
+      animation: rotateLight 6s linear infinite, floatLogo 4s ease-in-out infinite;
+    }
+
+    @keyframes rotateLight {
+      0% { filter: drop-shadow(0 0 8px rgba(212,175,55,0.25)); }
+      50% { filter: drop-shadow(0 0 18px rgba(212,175,55,0.55)); }
+      100% { filter: drop-shadow(0 0 8px rgba(212,175,55,0.25)); }
+    }
+
+    .brand {
+      margin-top: 18px;
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    .tagline {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 1rem;
+      letter-spacing: 1px;
+    }
+
+    .hero-line {
+      width: 120px;
+      height: 3px;
+      margin: 18px auto 0;
+      border-radius: 50px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      animation: shimmer 2.5s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: scaleX(0.8); opacity: 0.6; }
+      50% { transform: scaleX(1.15); opacity: 1; }
+      100% { transform: scaleX(0.8); opacity: 0.6; }
+    }
+
+    .container {
+      width: min(1180px, 92%);
+      margin: 0 auto 60px;
+    }
+
+    .intro-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(212, 175, 55, 0.14);
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      margin-bottom: 32px;
+      backdrop-filter: blur(6px);
+    }
+
+    .intro-card p {
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 900px;
+      margin: auto;
+      font-size: 1rem;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .menu-section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      transform: translateY(20px);
+      opacity: 0;
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .menu-section:nth-child(1) { animation-delay: 3.3s; }
+    .menu-section:nth-child(2) { animation-delay: 3.5s; }
+    .menu-section:nth-child(3) { animation-delay: 3.7s; }
+    .menu-section:nth-child(4) { animation-delay: 3.9s; }
+
+    @keyframes fadeUp {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .section-header {
+      padding: 22px 24px 12px;
+      background: linear-gradient(135deg, rgba(212,175,55,0.08), rgba(255,255,255,0.02));
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-header h2 {
+      color: var(--gold-soft);
+      font-size: 1.4rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 0.95rem;
+    }
+
+    .items {
+      padding: 10px 18px 18px;
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+      padding: 16px 10px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+      transition: 0.35s ease;
+      border-radius: 14px;
+    }
+
+    .item:last-child {
+      border-bottom: none;
+    }
+
+    .item:hover {
+      background: rgba(212, 175, 55, 0.06);
+      transform: translateX(6px);
+    }
+
+    .item-info h3 {
+      font-size: 1rem;
+      color: var(--white);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .item-info p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .price {
+      color: var(--gold);
+      font-size: 1rem;
+      font-weight: 800;
+      white-space: nowrap;
+      min-width: 75px;
+      text-align: right;
+    }
+
+    .special-badge {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 5px 10px;
+      font-size: 0.75rem;
+      border-radius: 50px;
+      background: rgba(212,175,55,0.12);
+      color: var(--gold-soft);
+      border: 1px solid rgba(212,175,55,0.18);
+    }
+
+    footer {
+      text-align: center;
+      padding: 35px 20px 50px;
+      color: var(--muted);
+    }
+
+    footer .footer-logo {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-bottom: 14px;
+      opacity: 0.9;
+      animation: pulseLogo 2.5s infinite ease-in-out;
+    }
+
+    footer p {
+      margin: 5px 0;
+      font-size: 0.95rem;
+    }
+
+    .gold-text {
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    @media (max-width: 900px) {
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .brand {
+        font-size: 2rem;
+      }
+
+      .splash-title {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 560px) {
+      header {
+        padding-top: 40px;
+      }
+
+      .brand {
+        font-size: 1.6rem;
+      }
+
+      .tagline {
+        font-size: 0.9rem;
+      }
+
+      .item {
+        align-items: flex-start;
+      }
+
+      .price {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-<h1>CHICHEKHANE LOUNGE</h1>
+  <!-- ECRAN D'OUVERTURE -->
+  <div class="splash">
+    <img src="./fichier vectoriel2/LOGO_VECTORIELFINAL.png" alt="Logo CHICHEKHANE LOUNGE" class="splash-logo">
+    <div class="splash-title">CHICHEKHANE LOUNGE</div>
+    <div class="splash-subtitle">Luxury Lounge Experience</div>
+  </div>
 
-<div class="section">
-<h2>CHICHAS</h2>
+  <!-- CONTENU PRINCIPAL -->
+  <div class="main-content">
 
-<div class="item">
-<span>Love 66</span>
-<span>25 DT</span>
-</div>
+    <header>
+      <img src="./fichier vectoriel2/LOGO_VECTORIELFINAL.png" alt="Logo CHICHEKHANE LOUNGE" class="top-logo">
+      <h1 class="brand">CHICHEKHANE LOUNGE</h1>
+      <p class="tagline">Un lieu chic, raffiné et inoubliable</p>
+      <div class="hero-line"></div>
+    </header>
 
-<div class="item">
-<span>Menthe</span>
-<span>20 DT</span>
-</div>
+    <div class="container">
 
-<div class="item">
-<span>Double pomme</span>
-<span>22 DT</span>
-</div>
+      <div class="intro-card">
+        <p>
+          Bienvenue chez <span class="gold-text">CHICHEKHANE LOUNGE</span>, un espace élégant où le raffinement,
+          l’ambiance premium et les saveurs soigneusement sélectionnées se rencontrent.
+          Découvrez notre menu exclusif de chichas, boissons chaudes, cocktails frais et douceurs gourmandes.
+        </p>
+      </div>
 
-</div>
+      <div class="menu-grid">
 
-<div class="section">
-<h2>BOISSONS</h2>
+        <!-- CHICHAS -->
+        <section class="menu-section">
+          <div class="section-header">
+            <h2>Chichas Signature</h2>
+            <p>Nos parfums les plus demandés dans une ambiance lounge premium.</p>
+          </div>
+          <div class="items">
+            <div class="item">
+              <div class="item-info">
+                <h3>Love 66</h3>
+                <p>Saveur fruitée, fraîche et très appréciée.</p>
+                <span class="special-badge">Best Seller</span>
+              </div>
+              <div class="price">25 €</div>
+            </div>
 
-<div class="item">
-<span>Espresso</span>
-<span>3 DT</span>
-</div>
+            <div class="item">
+              <div class="item-info">
+                <h3>Double Pomme</h3>
+                <p>Le classique incontournable avec une note intense.</p>
+              </div>
+              <div class="price">22 €</div>
+            </div>
 
-<div class="item">
-<span>Cappuccino</span>
-<span>5 DT</span>
-</div>
+            <div class="item">
+              <div class="item-info">
+                <h3>Menthe Glacée</h3>
+                <p>Fraîcheur intense pour une session légère et agréable.</p>
+              </div>
+              <div class="price">20 €</div>
+            </div>
 
-<div class="item">
-<span>Mojito</span>
-<span>10 DT</span>
-</div>
+            <div class="item">
+              <div class="item-info">
+                <h3>Raisin Menthe</h3>
+                <p>Équilibre parfait entre douceur fruitée et fraîcheur.</p>
+              </div>
+              <div class="price">23 €</div>
+            </div>
 
-</div>
+            <div class="item">
+              <div class="item-info">
+                <h3>Pastèque Chill</h3>
+                <p>Parfum tendance avec une touche estivale raffinée.</p>
+              </div>
+              <div class="price">24 €</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- BOISSONS CHAUDES -->
+        <section class="menu-section">
+          <div class="section-header">
+            <h2>Boissons Chaudes</h2>
+            <p>Des pauses élégantes avec des saveurs riches et réconfortantes.</p>
+          </div>
+          <div class="items">
+            <div class="item">
+              <div class="item-info">
+                <h3>Espresso</h3>
+                <p>Café intense et raffiné.</p>
+              </div>
+              <div class="price">3 €</div>
+            </div>
+
+            <div class="item">
+              <div class="item-info">
+                <h3>Cappuccino</h3>
+                <p>Mousse onctueuse et arôme délicat.</p>
+              </div>
+              <div class="price">5 €</div>
+            </div>
+
+            <div class="item">
+              <div class="item-info">
+                <h3>Latte Macchiato</h3>
+                <p>Un café doux avec une texture crémeuse.</p>
+              </div>
+              <div class="price">6 €</div>
+            </div>
+
+            <div class="item">
+              <div class="item-info">
+                <h3>Chocolat Chaud</h3>
+                <p>Boisson gourmande et généreuse.</p>
+              </div>
+              <div class="price">7 €</div>
+            </div>
+
+            <div class="item">
+              <div class="item-info">
+                <h3>Thé à la Menthe</h3>
+                <p>Tradition et fraîcheur dans une tasse élégante.</p>
+              </div>
+              <div class="price">4 €</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- BOISSONS FROIDES -->
+        <section class="menu-section">
+          <div class="section-header">
+            <h2>Boissons Fraîches</h2>
+            <p>Des boissons pétillantes et rafraîchissantes pour tous les goûts.</p>
+          </div>
+          <div class="items">
+            <div class="item">
+              <div class="item-info">
+                <h3>Mojito Classique</h3>
+                <p>Citron vert, menthe et fraîcheur intense.</p>
+                <span class="special-badge">Fresh Choice</span>
+              </div>
+              <div class="price">10 €</div>
+            </div>
+
+            <div class="item">
+              <div class="item-info">
+                <h3>Mojito Fraise</h3>
+                <p>Version fruitée et élégante du grand classique.</p>
+              </div>
+              <div class="price">12 €</div>
+            </div>
+
+            <div class="item">
+              <div class="item-info">
+                <h3>Citronnade Maison</h3>
+                <p>Fraîche, légère et parfaitement équilibrée.</p>
+              </div>
+              <div class="price">8 €</div>
+            </div>
+
+            <div class="item">
+              <div class="item-info">
+                <h3>Jus d’Orange Frais</h3>
+                <p>Préparé à la demande.</p>
+              </div>
+              <div class="price">9 €</div>
+            </div>
+
+            <div class="item">
+              <div class="item-info">
+                <h3>Eau Minérale</h3>
+                <p>Plate ou gazeuse selon disponibilité.</p>
+              </div>
+              <div class="price">2 €</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- DESSERTS -->
+        <section class="menu-section">
+          <div class="section-header">
+            <h2>Desserts & Douceurs</h2>
+            <p>Une touche sucrée pour accompagner vos moments lounge.</p>
+          </div>
+          <div class="items">
+            <div class="item">
+              <div class="item-info">
+                <h3>Fondant Chocolat</h3>
+                <p>Moelleux intense au cœur coulant.</p>
+              </div>
+              <div class="price">12 €</div>
+            </div>
+
+            <div class="item">
+              <div class="item-info">
+                <h3>Tiramisu</h3>
+                <p>Crème légère et saveur café délicate.</p>
+              </div>
+              <div class="price">13 €</div>
+            </div>
+
+            <div class="item">
+              <div class="item-info">
+                <h3>Cheesecake Fruits Rouges</h3>
+                <p>Texture fondante et note fruitée.</p>
+              </div>
+              <div class="price">14 €</div>
+            </div>
+
+            <div class="item">
+              <div class="item-info">
+                <h3>Crêpe Nutella</h3>
+                <p>Une douceur simple et irrésistible.</p>
+              </div>
+              <div class="price">10 €</div>
+            </div>
+
+            <div class="item">
+              <div class="item-info">
+                <h3>Glace Artisanale</h3>
+                <p>Vanille, chocolat ou fraise.</p>
+              </div>
+              <div class="price">8 €</div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <footer>
+      <img src="./fichier vectoriel2/LOGO_VECTORIELFINAL.png" alt="Logo" class="footer-logo">
+      <p class="gold-text">CHICHEKHANE LOUNGE</p>
+      <p>Ambiance chic • Saveurs premium • Expérience unique</p>
+      <p>Votre menu digital élégant et moderne</p>
+    </footer>
+
+  </div>
 
 </body>
 </html>
